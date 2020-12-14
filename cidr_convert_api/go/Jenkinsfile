@@ -4,6 +4,7 @@ pipeline {
 			stage('One') {
 				steps {
 					sh 'echo "Step One"'
+					sh 'curl "localhost/cidr-to-mask?value=24"'
 				}
 			}
 
