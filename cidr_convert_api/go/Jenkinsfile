@@ -4,7 +4,8 @@ pipeline {
 			stage('One') {
 				steps {
 					sh 'echo "Step One"'
-					sh 'pwd'
+					sh 'cd cidr_convert_api/go/'
+					sh 'ls'
 				}
 			}
 
