@@ -4,7 +4,7 @@ pipeline {
 			stage('One') {
 				steps {
 					sh 'echo "Step One"'
-					sh 'curl "localhost/cidr-to-mask?value=24"'
+					sh 'curl "localhost:8000/cidr-to-mask?value=24"'
 				}
 			}
 
@@ -12,12 +12,14 @@ pipeline {
 			stage('Two') {
 				steps {
 					sh 'echo "Step Two"'
+					sh 'curl "localhost:8000/mask-to-cidr?value=255.255.0.0"'
 				}
 			} 
 
 			stage('Three') {
 				steps {
 					sh 'echo "Step Three"'
+					sh 'curl "localhost:8000/ip-validation?value=255.255.0.0"'
 				}
 			}
 		}
