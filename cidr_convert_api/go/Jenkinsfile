@@ -4,7 +4,7 @@ pipeline {
 			stage('One') {
 				steps {
 					sh 'echo "Step One"'
-					sh 'ls'
+					sh 'pwd'
 				}
 			}
 
