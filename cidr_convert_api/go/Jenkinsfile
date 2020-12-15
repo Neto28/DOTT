@@ -3,7 +3,7 @@ pipeline {
 		stages {
 			stage('One') {
 				steps {
-					scrpit {
+					script {
 						echo "Testing cidrToMask"
 						final String url = "http://ealvarez1c.mylabserver.com:8000/cidr-to-mask?value=24"
 					    	final String response = sh(script: "curl -s $url", returnStdout: true).trim()
