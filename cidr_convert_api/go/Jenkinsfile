@@ -4,8 +4,6 @@ pipeline {
 			stage('One') {
 				steps {
 					sh 'echo "Step One"'
-					sh 'cd cidr_convert_api/go/'
-					sh 'ls'
 				}
 			}
 
@@ -13,14 +11,12 @@ pipeline {
 			stage('Two') {
 				steps {
 					sh 'echo "Step Two"'
-					//sh 'curl localhost:8000/mask-to-cidr?value=255.255.0.0'
 				}
 			} 
 
 			stage('Three') {
 				steps {
-					sh 'echo "Step Three"'
-					//sh 'curl localhost:8000/ip-validation?value=255.255.0.0'
+					sh 'echo "Webhook Test"'
 				}
 			}
 		}
