@@ -13,7 +13,8 @@ goop install'''
       steps {
         sh '''echo "Testing Test Phase"
 cd cidr_convert_api/go/
-//go test'''
+
+'''
       }
     }
 
