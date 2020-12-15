@@ -3,14 +3,14 @@ pipeline {
 		stages {
 			stage('One') {
 				steps {
-					script {
-						echo "Testing cidrToMask"
+					//script {
+						sh 'echo "Testing cidrToMask"'
 						/*final String url = "http://ealvarez1c.mylabserver.com:8000/cidr-to-mask?value=24"
 					    	final String response = sh(script: "curl -s $url", returnStdout: true).trim()
 					    	echo response*/
-						ls
-						pwd
-					}
+						sh 'ls'
+						sh 'pwd'
+					//}
 				}
 			}
 
