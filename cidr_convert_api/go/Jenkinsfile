@@ -10,7 +10,7 @@ pipeline {
 
 			stage('Two') {
 				steps {
-					sh 'echo "Web"'
+					sh 'echo "Web Test"'
 				}
 			} 
 
