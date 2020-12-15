@@ -3,20 +3,23 @@ pipeline {
 		stages {
 			stage('One') {
 				steps {
-					sh 'echo "Testing changes"'
+					sh 'echo "Testing cidrToMask"'
+					sh 'curl http://ealvarez1c.mylabserver.com:8000/cidr-to-mask?value=24'
 				}
 			}
 
 
 			stage('Two') {
 				steps {
-					sh 'echo "Web Test"'
+					sh 'echo "Testing maskToCidr"'
+					sh 'curl http://ealvarez1c.mylabserver.com:8000/mask-to-cidr?value=255.255.0.0'
 				}
 			} 
 
 			stage('Three') {
 				steps {
-					sh 'echo "Still testing maybe end?"'
+					sh 'echo "Testing ipv4Validation"'
+					sh 'curl http://ealvarez1c.mylabserver.com:8000/ip-validation?value=255.255.0.0'
 				}
 			}
 		}
