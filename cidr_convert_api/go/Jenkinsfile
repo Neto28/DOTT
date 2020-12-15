@@ -3,14 +3,14 @@ pipeline {
 		stages {
 			stage('One') {
 				steps {
-					sh 'echo "Step One"'
+					sh 'echo "Testing changes"'
 				}
 			}
 
 
 			stage('Two') {
 				steps {
-					sh 'echo "Step Two"'
+					sh 'echo "Made from LinuxAcademyTerminal"'
 				}
 			} 
 
