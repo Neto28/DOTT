@@ -10,7 +10,7 @@ pipeline {
 
 			stage('Two') {
 				steps {
-					sh 'echo "Made from LinuxAcademyTerminal"'
+					sh 'echo "Web"'
 				}
 			} 
 
