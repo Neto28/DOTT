@@ -6,6 +6,7 @@ RUN apk add build-base
 
 WORKDIR /app
 
+#Goopfile only runs one command may be better to add it here and not have a Goopfile at all
 COPY Goopfile Goopfile
 RUN go get github.com/karmakaze/goop \
     && go get github.com/gorilla/mux \
