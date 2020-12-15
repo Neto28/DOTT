@@ -1,33 +1,26 @@
 pipeline {
-	agent any
-		stages {
-			stage('One') {
-				steps {
-					//script {
-						sh 'echo "Testing cidrToMask"'
-						/*final String url = "http://ealvarez1c.mylabserver.com:8000/cidr-to-mask?value=24"
-					    	final String response = sh(script: "curl -s $url", returnStdout: true).trim()
-					    	echo response*/
-						sh 'ls'
-						sh 'pwd'
-					//}
-				}
-			}
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'echo "Testing cidrToMask"'
+        sh '''cd cidr_convert_api/go/
+'''
+        sh 'ls'
+      }
+    }
 
+    stage('Two') {
+      steps {
+        echo 'Testing maskToCidr'
+      }
+    }
 
-			stage('Two') {
-				steps {
-					echo "Testing maskToCidr"
-					//sh 'curl http://ealvarez1c.mylabserver.com:8000/mask-to-cidr?value=255.255.0.0'
-				}
-			} 
+    stage('Three') {
+      steps {
+        sh 'echo "Testing ipv4Validation"'
+      }
+    }
 
-			stage('Three') {
-				steps {
-					sh 'echo "Testing ipv4Validation"'
-					//sh 'curl http://ealvarez1c.mylabserver.com:8000/ip-validation?value=255.255.0.0'
-				}
-			}
-		}
+  }
 }
-
