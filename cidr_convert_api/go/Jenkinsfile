@@ -3,10 +3,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'echo "Testing cidrToMask"'
-        sh '''cd cidr_convert_api/go/
-'''
-        sh 'ls'
+        sh '''echo "Testing cidrToMask"
+cd cidr_convert_api/go/
+pwd 
+ls'''
       }
     }
 
