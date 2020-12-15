@@ -1,8 +1,10 @@
 // Dependencies
 
-// Web Toolkit
+// This Web Toolkit is not installed when the Goopfile is read
 github.com/gorilla/mux
 
-//Test Dependancies
+// Test Dependancies
+// Only this is installed 
 github.com/pkg/errors
+// This dependancy is not installed when the Goopfile is read
 github.com/stretchr/testify/assert
