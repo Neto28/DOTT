@@ -22,24 +22,6 @@ sudo docker run -d --name goimage -ti -p 8000:8000 gom
       }
     }
 
-    stage('Test') {
-      steps {
-        sh '''echo "Testing Test Phase"
-
-sudo docker ps -a
-
-cd cidr_convert_api/go/
-
-go test'''
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        sh 'echo "Testing ipv4Validation"'
-      }
-    }
-
     stage('SonarCloud') {
       steps {
         sh '''echo "Test"
@@ -52,6 +34,27 @@ export PATH=$SONAR_SCANNER_HOME/bin:$PATH
 export SONAR_SCANNER_OPTS="-server"
 
 sonar-scanner
+
+'''
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh '''echo "Testing Test Phase"
+
+sudo docker ps -a
+
+cd cidr_convert_api/go/
+
+sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
+'''
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh '''echo "Test"
 
 echo "DESTORING GO CONTAINER"
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")'''
