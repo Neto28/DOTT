@@ -6,13 +6,13 @@ pipeline {
         sh '''echo "Testing Build Phase"
 
 echo "BUILDING DOCKER"
-yum install -y yum-utils
-yum-config-manager \\
+sudo yum install -y yum-utils
+sudo yum-config-manager \\
     --add-repo \\
     https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io
-systemctl start docker
-docker run hello-world
+sudo yum install docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo docker run hello-world
 
 cd cidr_convert_api/go/
 '''
