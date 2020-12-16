@@ -4,17 +4,15 @@ pipeline {
     stage('Build') {
       steps {
         sh '''echo "Testing Build Phase"
-cd cidr_convert_api/go/
-goop install'''
+              cd cidr_convert_api/go/
+              goop install'''
       }
     }
 
     stage('Test') {
       steps {
         sh '''echo "Testing Test Phase"
-cd cidr_convert_api/go/
-
-'''
+              cd cidr_convert_api/go/'''
       }
     }
 
@@ -26,7 +24,9 @@ cd cidr_convert_api/go/
 
     stage('SonarCloud') {
       steps {
-        sh 'echo "Test"'
+        def scannerHome = tool 'SonarScanner 4.0';
+        withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
+        sh "${scannerHome}/bin/sonar-scanner"
       }
     }
 
