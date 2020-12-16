@@ -1,13 +1,10 @@
 pipeline {
   agent any
-  environment {
-    build = 'false'
-  }
   stages {
     stage('Build') {
-      when {
+      /*when {
         build 'false'
-      }
+      }*/
       steps {
         sh '''echo "Testing Build Phase"
 
@@ -77,6 +74,8 @@ sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
 '''
       }
     }
-
+  }
+  environment {
+    build = 'false'
   }
 }
