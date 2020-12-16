@@ -17,9 +17,7 @@ echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
 
-containerID=(sudo docker ps -aqf "name=goimage")
-
-echo $containerID
+echo $build
 
 echo "DESTORING EXISTING GO CONTAINER"
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
