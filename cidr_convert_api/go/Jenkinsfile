@@ -35,7 +35,7 @@ export SONAR_SCANNER_OPTS="-server"
 
 cd cidr_convert_api/go/
 
-sonar-scanner \\
+sudo sonar-scanner \\
   -Dsonar.organization=neto28 \\
   -Dsonar.projectKey=Neto28_DOTT \\
   -Dsonar.sources=. \\
