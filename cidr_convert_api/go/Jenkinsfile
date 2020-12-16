@@ -17,7 +17,7 @@ echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
 
-containerID=sudo docker ps -aqf "name=goimage"
+containerID=$(sudo docker ps -aqf "name=goimage")
 
 echo $containerID
 
