@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       when {
-        env.build='false'
+        environment name: 'build', value 'false'
       }
       steps {
         sh '''echo "Testing Build Phase"
@@ -68,6 +68,6 @@ sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
     }
   }
   environment {
-    build = 'false'
+    build='false'
   }
 }
