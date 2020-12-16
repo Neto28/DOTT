@@ -28,6 +28,12 @@ cd cidr_convert_api/go/
       steps {
         sh '''echo "Test"
 cd cidr_convert_api/go/
+
+withSonarQubeEnv(\'Sonar\', envOnly: true) {
+  // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
+  println ${env.SONAR_HOST_URL} 
+}
+
 def scannerHome = tool \'SonarScanner 4.5\';
 withSonarQubeEnv(\'Sonar\') {
 sh "${scannerHome}/bin/sonar-scanner"
