@@ -18,7 +18,7 @@ cd cidr_convert_api/go/
 sudo docker build -t gom .
 sudo docker run -d --name goimage -ti -p 8000:8000 gom
 
-sudo docker rm -f $(sudo docker ps -aqf "name=goimage")'''
+'''
       }
     }
 
@@ -26,7 +26,11 @@ sudo docker rm -f $(sudo docker ps -aqf "name=goimage")'''
       steps {
         sh '''echo "Testing Test Phase"
 
-sudo docker ps -a'''
+sudo docker ps -a
+
+cd cidr_convert_api/go/
+
+go test'''
       }
     }
 
@@ -47,12 +51,10 @@ unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
 export PATH=$SONAR_SCANNER_HOME/bin:$PATH
 export SONAR_SCANNER_OPTS="-server"
 
-pwd
-
-ls -lah
-
 sonar-scanner
-'''
+
+echo "DESTORING GO CONTAINER"
+sudo docker rm -f $(sudo docker ps -aqf "name=goimage")'''
       }
     }
 
