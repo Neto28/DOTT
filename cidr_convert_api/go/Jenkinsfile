@@ -38,6 +38,8 @@ export SONAR_SCANNER_OPTS="-server"
 pwd
 
 ls -lah
+
+sonar-scanner
 '''
       }
     }
