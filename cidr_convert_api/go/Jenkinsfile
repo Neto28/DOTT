@@ -35,9 +35,9 @@ unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
 export PATH=$SONAR_SCANNER_HOME/bin:$PATH
 export SONAR_SCANNER_OPTS="-server"
 
-withSonarQubeEnv(\'My SonarQube Server\') {
-      sh "$HOME/.sonar/sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner"
-}'''
+pws
+
+sonar-scanner +X'''
       }
     }
 
