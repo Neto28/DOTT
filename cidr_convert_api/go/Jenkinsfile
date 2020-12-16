@@ -28,7 +28,7 @@ sudo docker run -d --name goimage -ti -p 8000:8000 gom
 
     stage('SonarCloud') {
       steps {
-        sh '''echo "Test"
+        sh '''echo "STATIC CODE ANALYSIS"
 
 export SONAR_SCANNER_VERSION=4.4.0.2170
 export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
@@ -43,9 +43,9 @@ sonar-scanner
       }
     }
 
-    stage('Test') {
+    stage('Testing') {
       steps {
-        sh '''echo "Testing Test Phase"
+        sh '''echo "UNIT TESTING"
 
 sudo docker ps -a
 
