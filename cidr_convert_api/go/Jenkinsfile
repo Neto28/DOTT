@@ -45,13 +45,15 @@ sonar-scanner
 
     stage('Testing') {
       steps {
+        warnError(message: 'Failed to Run') {
+          sh '''cd cidr_convert_api/go/
+
+sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'''
+        }
+
         sh '''echo "UNIT TESTING"
 
 sudo docker ps -a
-
-cd cidr_convert_api/go/
-
-sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test
 '''
       }
     }
