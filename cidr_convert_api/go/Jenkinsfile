@@ -17,11 +17,14 @@ echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
 
+script {
 if (env.build == "false") {
 echo $build
 } else {
 echo "true"
 }
+}
+
 echo "DESTORING EXISTING GO CONTAINER"
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
 
