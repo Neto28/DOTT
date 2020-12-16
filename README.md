@@ -67,7 +67,7 @@ curl localhost/ip-validation?value=255.255.0.0
     - [ ] Static Code Analysis
 - [X] Testing
     - [X] Unit testing
-    - [ ] Functional Tesging(plus)
+    - [ ] Functional Testing(plus)
 - [X] (Plus) Docker
 - [ ] (Plus) Seguridad
 - [ ] (Plus) Fix Code
