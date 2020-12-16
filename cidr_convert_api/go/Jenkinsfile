@@ -2,9 +2,6 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      when {
-        environment name: 'build', value 'false'
-      }
       steps {
         sh '''echo "Testing Build Phase"
 
