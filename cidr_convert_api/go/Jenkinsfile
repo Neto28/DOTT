@@ -16,6 +16,11 @@ sudo systemctl start docker
 echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
+
+echo "DESTORING EXISTING GO CONTAINER"
+sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
+
+echo "RUN GO CONTAINER"
 sudo docker run -d --name goimage -ti -p 8000:8000 gom
 
 '''
@@ -56,8 +61,7 @@ sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
       steps {
         sh '''echo "Test"
 
-echo "DESTORING GO CONTAINER"
-sudo docker rm -f $(sudo docker ps -aqf "name=goimage")'''
+'''
       }
     }
 
