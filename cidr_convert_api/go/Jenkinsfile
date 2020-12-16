@@ -12,13 +12,15 @@ sudo yum-config-manager \\
     https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install docker-ce docker-ce-cli containerd.io
 sudo systemctl start docker
-sudo docker run hello-world
 
 echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
 sudo docker run -d -ti -p 8000:8000 gom
-'''
+
+sudo docker ps -aqf "name=gom"
+
+sudo docker rm -f "name=gom"'''
       }
     }
 
