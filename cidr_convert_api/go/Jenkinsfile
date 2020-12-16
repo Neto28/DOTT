@@ -18,17 +18,15 @@ echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
 sudo docker build -t gom .
 sudo docker run -d -ti -p 8000:8000 gom
-
-curl localhost:8000'''
+'''
       }
     }
 
     stage('Test') {
       steps {
         sh '''echo "Testing Test Phase"
-cd cidr_convert_api/go/
 
-'''
+sudo docker ps -a'''
       }
     }
 
