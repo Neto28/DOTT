@@ -26,7 +26,11 @@ cd cidr_convert_api/go/
 
     stage('SonarCloud') {
       steps {
-        sh 'echo "Test"'
+        sh '''echo "Test"
+def scannerHome = tool \'SonarScanner 4.0\';
+withSonarQubeEnv(\'My SonarQube Server\') {
+sh "${scannerHome}/bin/sonar-scanner"
+}'''
       }
     }
 
