@@ -14,8 +14,12 @@ sudo yum install docker-ce docker-ce-cli containerd.io
 sudo systemctl start docker
 sudo docker run hello-world
 
+echo "BUILDING GO CONTAINER"
 cd cidr_convert_api/go/
-'''
+docker build -t gom .
+docker run -d -ti -p 8000:8000 gom
+
+curl localhost:8000'''
       }
     }
 
