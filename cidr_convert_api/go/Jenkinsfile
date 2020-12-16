@@ -18,11 +18,12 @@ cd cidr_convert_api/go/
 sudo docker build -t gom .
 
 echo "DESTORING EXISTING GO CONTAINER"
+if (build=false){
+echo "TEST"
+}
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
-
 echo "RUN GO CONTAINER"
 sudo docker run -d --name goimage -ti -p 8000:8000 gom
-
 '''
       }
     }
@@ -65,5 +66,8 @@ sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
       }
     }
 
+  }
+  environment {
+    build = 'false'
   }
 }
