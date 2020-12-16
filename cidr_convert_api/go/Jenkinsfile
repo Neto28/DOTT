@@ -51,7 +51,7 @@ sudo docker ps -a
 
 cd cidr_convert_api/go/
 
-sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
+sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test
 '''
       }
     }
@@ -63,8 +63,9 @@ sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test
 '''
       }
     }
+
   }
   environment {
-    build='false'
+    build = 'false'
   }
 }
