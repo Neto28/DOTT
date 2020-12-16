@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''echo "Testing Build Phase"
 cd cidr_convert_api/go/
-goop install'''
+'''
       }
     }
 
@@ -27,8 +27,9 @@ cd cidr_convert_api/go/
     stage('SonarCloud') {
       steps {
         sh '''echo "Test"
-def scannerHome = tool \'SonarScanner 4.0\';
-withSonarQubeEnv(\'My SonarQube Server\') {
+cd cidr_convert_api/go/
+def scannerHome = tool \'SonarScanner 4.5\';
+withSonarQubeEnv(\'Sonar\') {
 sh "${scannerHome}/bin/sonar-scanner"
 }'''
       }
