@@ -18,7 +18,7 @@ cd cidr_convert_api/go/
 sudo docker build -t gom .
 sudo docker run -d --name goimage -ti -p 8000:8000 gom
 
-sudo docker rm -f $(docker ps -aqf "name=goimage")'''
+//sudo docker rm -f $(docker ps -aqf "name=goimage")'''
       }
     }
 
