@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''echo "Testing Build Phase"
+        sh '''echo "BUILDING"
 
 echo "BUILDING DOCKER"
 sudo yum install -y yum-utils
