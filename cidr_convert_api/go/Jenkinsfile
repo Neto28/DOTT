@@ -36,7 +36,7 @@ unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
 export PATH=$SONAR_SCANNER_HOME/bin:$PATH
 export SONAR_SCANNER_OPTS="-server"
 
-sonar-scanner \\
+sonar-scanner +X \\
   -Dsonar.organization=neto28 \\
   -Dsonar.projectKey=Neto28_DOTT \\
   -Dsonar.sources=. \\
