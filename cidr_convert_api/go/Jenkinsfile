@@ -2,10 +2,10 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      when {
+        build 'false'
+      }
       steps {
-        when {
-          build 'false'
-        }
         sh '''echo "Testing Build Phase"
 
 echo "BUILDING DOCKER"
