@@ -19,11 +19,7 @@ pipeline {
         warnError(message: 'Failed to Run') {
           //sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
-            //sh 'goop install'
-            withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin:${HOME}/go/bin"]) {
-                sh "go get gopkg.in/alecthomas/gometalinter.v1"
-                sh "gometalinter.v1 --help"
-            }
+            sh 'goop install'
           }
         }
       }
@@ -35,11 +31,5 @@ pipeline {
       }
     }
 
-  }
-  tools {
-    go 'go-1.15'
-  }
-  environment {
-    GO111MODULE = 'on'
   }
 }
