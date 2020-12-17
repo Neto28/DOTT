@@ -63,10 +63,10 @@ curl localhost/ip-validation?value=255.255.0.0
 - [X] Jenkins
     - [X] Webhook
 - [X] SonarCloud
-    - [ ] (Plus) Linting
     - [X] Static Code Analysis
 - [X] Testing
     - [X] Unit testing
+    - [X] (Plus) Linting
     - [ ] Functional Testing(plus)
 - [X] (Plus) Docker
 - [ ] (Plus) Seguridad
