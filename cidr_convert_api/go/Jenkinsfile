@@ -17,11 +17,7 @@ pipeline {
       steps {
         warnError(message: 'Failed to Run') {
           sh 'go version'
-          sh 'go get github.com/karmakaze/goop'
-          sh 'go get github.com/stretchr/testify/assert'
-          sh 'go get github.com/pkg/errors'
           dir(path: 'cidr_convert_api/go/') {
-            sh 'go get -u github.com/gorilla/mux'
             sh 'goop install'
             sh 'go test api.go  convert.go  convert_test.go'
           }
