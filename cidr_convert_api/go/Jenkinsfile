@@ -1,5 +1,11 @@
 pipeline {
   agent any
+  tools {
+    go 'go-1.15'
+  }
+  environment {
+    GO151MODULE = 'on'
+  }
   stages {
     stage('Build') {
       steps {
@@ -17,25 +23,15 @@ pipeline {
     stage('Testing') {
       steps {
         warnError(message: 'Failed to Run') {
-          //def root = tool name: 'Go 1.8', type: 'go'
-          // Export environment variables pointing to the directory where Go was installed
-          //withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
             sh 'go version'
-          //}  
         }
       }
     }
 
     stage('Deploy') {
       steps {
-        sh '''echo "Test"
-
-'''
+        echo "Test"
       }
     }
-
-  }
-  environment {
-    build = 'false'
   }
 }
