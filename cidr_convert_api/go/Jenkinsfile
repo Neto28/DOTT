@@ -4,24 +4,6 @@ pipeline {
     stage('Build') {
       steps {
         sh '''echo "BUILDING"
-
-echo "BUILDING DOCKER"
-sudo yum install -y yum-utils
-sudo yum-config-manager \\
-    --add-repo \\
-    https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce docker-ce-cli containerd.io
-sudo systemctl start docker
-
-echo "BUILDING GO CONTAINER"
-cd cidr_convert_api/go/
-sudo docker build -t gom .
-
-echo "DESTORING EXISTING GO CONTAINER"
-sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
-
-echo "RUN GO CONTAINER"
-sudo docker run -d --name goimage -ti -p 8000:8000 gom
 '''
       }
     }
@@ -29,13 +11,6 @@ sudo docker run -d --name goimage -ti -p 8000:8000 gom
     stage('SonarCloud') {
       steps {
         sh '''echo "STATIC CODE ANALYSIS"
-
-export SONAR_SCANNER_VERSION=4.4.0.2170
-export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
-curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
-unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
-export PATH=$SONAR_SCANNER_HOME/bin:$PATH
-export SONAR_SCANNER_OPTS="-server"
 
 sonar-scanner
 
@@ -48,17 +23,12 @@ sonar-scanner
         warnError(message: 'Failed to Run') {
           sh '''cd cidr_convert_api/go/
 
-sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go get -u golang.org/x/lint/golint
+golint api.go convert.go convert_test.go
 
-sudo docker exec -i $(sudo docker ps -aqf "name=goimage") golint api.go convert.go convert_test.go
-
-sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'''
+go test'''
         }
 
-        sh '''echo "UNIT TESTING"
-
-sudo docker ps -a
-'''
+        sh 'echo "UNIT TESTING"'
       }
     }
 
