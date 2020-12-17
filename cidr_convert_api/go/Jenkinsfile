@@ -3,14 +3,14 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo "BUILDING"
+        echo 'BUILDING'
       }
     }
 
     stage('SonarCloud') {
       steps {
-        echo "SONARCLOUD  STSTIC CODE ANALYSIS"
-        sonar-scanner
+        echo 'SONARCLOUD STATIC CODE ANALYSIS'
+        //sonar-scanner
       }
     }
 
