@@ -10,6 +10,7 @@ pipeline {
         stage('Compile') {
             steps {
                 sh 'cd cidr_convert_api/go/'
+                sh 'pwd'
                 sh 'go build'
             }
         }
