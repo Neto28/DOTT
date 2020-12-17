@@ -62,9 +62,9 @@ curl localhost/ip-validation?value=255.255.0.0
 ### CI/CD Pipeline
 - [X] Jenkins
     - [X] Webhook
-- [ ] Sonar Qube
+- [X] SonarCloud
     - [ ] (Plus) Linting
-    - [ ] Static Code Analysis
+    - [X] Static Code Analysis
 - [X] Testing
     - [X] Unit testing
     - [ ] Functional Testing(plus)
@@ -73,8 +73,8 @@ curl localhost/ip-validation?value=255.255.0.0
 - [ ] (Plus) Fix Code
 
 ### Techincal Diagram 
-- [ ] Processes
-- [ ] Information Flow between different technologies
+- [X] Processes
+- [X] Information Flow between different technologies
 
 ### Task Organization
 - [X] Kanban (Trello.com)
