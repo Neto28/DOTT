@@ -22,7 +22,7 @@ pipeline {
           sh 'go get github.com/stretchr/testify/assert'
           sh 'go get github.com/pkg/errors'*/
           dir(path: 'cidr_convert_api/go/') {
-            sh 'go test'
+            sh 'go test cidr_convert_api/go/'
           }
         }
       }
