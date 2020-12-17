@@ -10,21 +10,19 @@ pipeline {
     stage('SonarCloud') {
       steps {
         echo 'SONARCLOUD STATIC CODE ANALYSIS'
-        sh 'sonar-scanner'
+        //sh 'sonar-scanner'
       }
     }
 
     stage('Testing') {
       steps {
         warnError(message: 'Failed to Run') {
-          sh '''cd cidr_convert_api/go/
-
-golint api.go convert.go convert_test.go
-
-go test'''
+          def root = tool name: 'Go 1.8', type: 'go'
+          // Export environment variables pointing to the directory where Go was installed
+          withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+            sh 'go version'
+          }  
         }
-
-        sh 'echo "UNIT TESTING"'
       }
     }
 
