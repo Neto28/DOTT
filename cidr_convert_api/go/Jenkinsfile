@@ -18,7 +18,7 @@ pipeline {
         warnError(message: 'Failed to Run') {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
-            sh 'goop install'
+            //sh 'goop install'
             sh 'go test api.go  convert.go  convert_test.go'
           }
         }
