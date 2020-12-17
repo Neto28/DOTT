@@ -10,7 +10,7 @@ pipeline {
     stage('SonarCloud') {
       steps {
         echo 'SONARCLOUD STATIC CODE ANALYSIS'
-        //testing changes in server
+        //testing changes in server 
       }
     }
 
