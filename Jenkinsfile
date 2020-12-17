@@ -14,14 +14,16 @@ pipeline {
             }
         }
         stage('Test') {
-            sh 'go version'
             /*environment {
                 CODECOV_TOKEN = credentials('codecov_token')
-            }
+            }*/
             steps {
+                sh 'go version'
+                sh 'curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.15.6'
+                sh 'golangci-lint run'
                 sh 'go test ./... -coverprofile=coverage.txt'
                 sh "curl -s https://codecov.io/bash | bash -s -"
-            }*/
+            }
         }
         stage('Code Analysis') {
             steps {
