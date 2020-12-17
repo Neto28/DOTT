@@ -18,7 +18,8 @@ pipeline {
         warnError(message: 'Failed to Run') {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
-            sh 'go test'
+            sh '''pwd 
+ls'''
           }
 
         }
