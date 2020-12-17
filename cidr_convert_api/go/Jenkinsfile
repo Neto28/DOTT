@@ -1,11 +1,5 @@
 pipeline {
   agent any
-  tools {
-    go 'go-1.15'
-  }
-  environment {
-    GO151MODULE = 'on'
-  }
   stages {
     stage('Build') {
       steps {
@@ -16,22 +10,29 @@ pipeline {
     stage('SonarCloud') {
       steps {
         echo 'SONARCLOUD STATIC CODE ANALYSIS'
-        //sh 'sonar-scanner'
       }
     }
 
     stage('Testing') {
       steps {
         warnError(message: 'Failed to Run') {
-            sh 'go version'
+          sh 'go version'
         }
+
       }
     }
 
     stage('Deploy') {
       steps {
-        echo "Test"
+        echo 'Test'
       }
     }
+
+  }
+  tools {
+    go 'go-1.15'
+  }
+  environment {
+    GO111MODULE = 'on'
   }
 }
