@@ -14,6 +14,7 @@ pipeline {
             }
         }
         stage('Test') {
+            sh 'go version'
             /*environment {
                 CODECOV_TOKEN = credentials('codecov_token')
             }
