@@ -48,6 +48,10 @@ sonar-scanner
         warnError(message: 'Failed to Run') {
           sh '''cd cidr_convert_api/go/
 
+sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go get -u golang.org/x/lint/golint
+
+sudo docker exec -i $(sudo docker ps -aqf "name=goimage") golint api.go convert.go convert_test.go
+
 sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'''
         }
 
