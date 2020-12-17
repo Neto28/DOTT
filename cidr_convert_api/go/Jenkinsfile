@@ -17,11 +17,11 @@ pipeline {
     stage('Testing') {
       steps {
         warnError(message: 'Failed to Run') {
-          def root = tool name: 'Go 1.8', type: 'go'
+          //def root = tool name: 'Go 1.8', type: 'go'
           // Export environment variables pointing to the directory where Go was installed
-          withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+          //withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
             sh 'go version'
-          }  
+          //}  
         }
       }
     }
