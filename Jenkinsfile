@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'cd cidr_convert_api/go/'
                 sh 'pwd'
+                sh 'ls'
                 sh 'go build'
             }
         }
