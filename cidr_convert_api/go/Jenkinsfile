@@ -23,6 +23,7 @@ pipeline {
             sh'pwd'
             sh 'ls'
             sh 'docker exec -i $(docker ps -aqf "name=goimage") go test -coverprofile=coverage.out'
+            sh 'ls'
           }
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
