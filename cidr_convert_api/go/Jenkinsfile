@@ -26,6 +26,8 @@ pipeline {
         script {
           echo 'SONARCLOUD STATIC CODE ANALYSIS'
           dir(path: 'cidr_convert_api/go/') {
+            sh'pwd'
+            sh 'ls'
             sh 'go test -coverprofile=coverage.out'
           }
           warnError(message: 'Jenkins SonarQube Failure') {
@@ -36,7 +38,7 @@ pipeline {
               -Dsonar.projectKey=$KEY \
               -Dsonar.sources=. \
               -Dsonar.login=$TOKEN \
-              -Dsonar.go.tests.reportPaths=$WORKSPACE/coverage \
+              -Dsonar.go.tests.reportPaths=$WORKSPACE/coverage.xml \
               -Dsonar.host.url=https://sonarcloud.io"
             }
           }
