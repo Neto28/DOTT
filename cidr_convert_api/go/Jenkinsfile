@@ -36,12 +36,12 @@ sonar-scanner'''
           }
 
           warnError(message: 'SonarQube Error') {
-            withSonarQubeEnv('My SonarQube Server') {
-              sh '${scannerHome}/bin/sonar-scanner'
-            }
-
+            script {
+				      def scannerHome = tool 'My SonarQube Server';
+					   	withSonarQubeEnv("My SonarQube Server") {
+						   sh "${tool("My SonarQube Server")}/bin/sonar-scanner
+					  }
           }
-
         }
       }
 
