@@ -17,9 +17,13 @@ pipeline {
 
     stage('SonarCloud') {
       steps {
-	      script {
-	      	echo 'SONARCLOUD STATIC CODE ANALYSIS'
-	      }
+        script {
+	  echo 'SONARCLOUD STATIC CODE ANALYSIS'
+	  def scannerHome = tool 'My SonarQube Server';
+	  withSonarQubeEnv("My SonarQube Server") {
+	     sh "${tool("My SonarQube Server")}/bin/sonar-scanner
+	  }
+        }
         /*warnError(message: 'Sonar-Scanner Error') {
           sh '''export SONAR_SCANNER_VERSION=4.4.0.2170
 export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
