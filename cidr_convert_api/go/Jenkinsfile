@@ -6,7 +6,7 @@ pipeline {
         echo 'BUILDING'
         warnError(message: 'Container already running') {
           dir(path: 'cidr_convert_api/go/') {
-            sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
+            sh 'containerID=$(docker ps -aqf "name=goimage")'
             sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
           }
 
@@ -37,7 +37,7 @@ sonar-scanner'''
 
           warnError(message: 'SonarQube Error') {
             withSonarQubeEnv('My SonarQube Server') {
-              sh 'println ${env.SONAR_HOST_URL} '
+              sh '${scannerHome}/bin/sonar-scanner'
             }
 
           }
