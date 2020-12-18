@@ -12,24 +12,29 @@ pipeline {
 
         }
 
-        dir(path: '/var/lib/jenkins/workspace') {
-          sh './sonarcloud.sh'
-        }
-
       }
     }
 
     stage('SonarCloud') {
       steps {
-        sh '''echo \'SONARCLOUD STATIC CODE ANALYSIS\'
+        echo 'SONARCLOUD STATIC CODE ANALYSIS'
+        warnError(message: 'Sonar-Scanner Error') {
+          sh '''export SONAR_SCANNER_VERSION=4.4.0.2170
+export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+export SONAR_SCANNER_OPTS="-server"
 
 sonar-scanner'''
+        }
+
       }
     }
 
     stage('Testing') {
       steps {
-        warnError(message: 'Failed to Run') {
+        warnError(message: 'Failed to Run Tests') {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
             sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
@@ -42,10 +47,13 @@ sonar-scanner'''
 
     stage('Deploy') {
       steps {
-        echo 'Test'
-        sh '''echo "DESTORING EXISTING GO CONTAINER"
+        echo 'DEPLOYING'
+        warnError(message: 'Container doesn\'t exist') {
+          sh '''echo "DESTORING EXISTING GO CONTAINER"
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
 '''
+        }
+
       }
     }
 
