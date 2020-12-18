@@ -40,7 +40,7 @@ sonar-scanner'''
         warnError(message: 'Failed to Run') {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
-            sh 'sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test'
+            sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
           }
 
         }
