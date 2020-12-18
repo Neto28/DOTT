@@ -1,7 +1,10 @@
 pipeline {
   agent any
   environment {
-    SECRET = credentialsId('org')
+    ORG = credentialsId('org')
+    HOST = credentialsId('host')
+    KEY = credentialsId('key')
+    TOKEN = credentialsId('token')
   }
   stages {
     stage('Build') {
@@ -26,6 +29,11 @@ pipeline {
             def scannerHome = tool 'My SonarQube Server';
             withSonarQubeEnv("My SonarQube Server") {
               sh "${tool("My SonarQube Server")}/bin/sonar-scanner \
+              -Dsonar.organization=$ORG \
+              -Dsonar.projectKey=$KEY \
+              -Dsonar.sources=. \
+              -Dsonar.login=$TOKEN \
+              -Dsonar.projectBaseDir=cidr_convert_api/go/
               -Dsonar.host.url=https://sonarcloud.io"
             }
           }
@@ -54,7 +62,6 @@ pipeline {
           sh '''echo "DESTORING EXISTING GO CONTAINER"
 docker rm -f $(docker ps -aqf "name=goimage")
 '''
-          echo "My secret text is '${SECRET}'"
         }
 
       }
