@@ -26,6 +26,7 @@ pipeline {
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
             withSonarQubeEnv("My SonarQube Server") {
+              waitForQualityGate(abortPipeline: true, credentialsId: '$TOKEN')
               sh "${tool("My SonarQube Server")}/bin/sonar-scanner \
               -Dsonar.organization=$ORG \
               -Dsonar.projectKey=$KEY \
