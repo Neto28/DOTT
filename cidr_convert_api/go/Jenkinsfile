@@ -10,6 +10,9 @@ pipeline {
           sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
         }
 
+        sh '''cd /home/cloud_user/DOTT
+pwd
+ls'''
       }
     }
 
