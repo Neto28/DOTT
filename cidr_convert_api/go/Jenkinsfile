@@ -22,7 +22,8 @@ pipeline {
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
             withSonarQubeEnv("My SonarQube Server") {
-              sh "${tool("My SonarQube Server")}/bin/sonar-scanner"
+              sh "${tool("My SonarQube Server")}/bin/sonar-scanner \
+              -Dsonar.host.url=https://sonarcloud.io"
             }
           }
         }
