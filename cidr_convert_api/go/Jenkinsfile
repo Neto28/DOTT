@@ -60,7 +60,7 @@ pipeline {
           echo  "Quality Gate Success"
         }
       }
-    }*/
+    }
     
     stage('SonarQube Quality Gate') { 
       steps {
@@ -75,7 +75,7 @@ pipeline {
           }
         }
       }
-    }
+    }*/
 
     stage('Testing') {
       steps {
