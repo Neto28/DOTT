@@ -37,6 +37,7 @@ pipeline {
           }
         }
 
+        waitForQualityGate(credentialsId: 'TOKEN', abortPipeline: true)
       }
     }
 
