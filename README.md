@@ -67,10 +67,10 @@ curl localhost/ip-validation?value=255.255.0.0
 - [X] Testing
     - [X] Unit testing
     - [X] (Plus) Linting
-    - [ ] Functional Testing(plus)
+    - [X] Functional Testing(plus)
 - [X] (Plus) Docker
 - [ ] (Plus) Seguridad
-- [ ] (Plus) Fix Code
+- [X] (Plus) Fix Code
 
 ### Techincal Diagram 
 - [X] Processes
