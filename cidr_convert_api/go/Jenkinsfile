@@ -37,43 +37,44 @@ pipeline {
           }
         }
 
-        sh '''withSonarQubeEnv("My SonarQube Server") {
+        sh '''def scannerHome = tool \'My SonarQube Server\';
+withSonarQubeEnv("My SonarQube Server") {
 waitForQualityGate(abortPipeline: true, credentialsId: \'$TOKEN\')
 }'''
-        }
       }
+    }
 
-      stage('Testing') {
-        steps {
-          warnError(message: 'Failed to Run Tests') {
-            sh 'go version'
-            dir(path: 'cidr_convert_api/go/') {
-              sh 'docker exec -i $(docker ps -aqf "name=goimage") go test'
-              sh 'docker exec -i $(docker ps -aqf "name=goimage") golint'
-            }
-
+    stage('Testing') {
+      steps {
+        warnError(message: 'Failed to Run Tests') {
+          sh 'go version'
+          dir(path: 'cidr_convert_api/go/') {
+            sh 'docker exec -i $(docker ps -aqf "name=goimage") go test'
+            sh 'docker exec -i $(docker ps -aqf "name=goimage") golint'
           }
 
         }
-      }
 
-      stage('Deploy') {
-        steps {
-          echo 'DEPLOYING'
-          warnError(message: 'Container doesn\'t exist') {
-            echo 'DESTROYING GO CONTAINER'
-            sh '''docker rm -f $(docker ps -aqf "name=goimage")
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'DEPLOYING'
+        warnError(message: 'Container doesn\'t exist') {
+          echo 'DESTROYING GO CONTAINER'
+          sh '''docker rm -f $(docker ps -aqf "name=goimage")
 '''
-          }
-
         }
-      }
 
+      }
     }
-    environment {
-      ORG = credentials('org')
-      HOST = credentials('host')
-      KEY = credentials('key')
-      TOKEN = credentials('token')
-    }
+
   }
+  environment {
+    ORG = credentials('org')
+    HOST = credentials('host')
+    KEY = credentials('key')
+    TOKEN = credentials('token')
+  }
+}
