@@ -1,10 +1,10 @@
 pipeline {
   agent any
   environment {
-    ORG = credentialsId('org')
-    HOST = credentialsId('host')
-    KEY = credentialsId('key')
-    TOKEN = credentialsId('token')
+    ORG = credentials('org')
+    HOST = credentials('host')
+    KEY = credentials('key')
+    TOKEN = credentials('token')
   }
   stages {
     stage('Build') {
