@@ -40,7 +40,7 @@ pipeline {
       }
     }
 
-    stage("Quality Gate"){
+    /*stage("Quality Gate"){
       steps{
         script {
           def ceTask
@@ -60,7 +60,7 @@ pipeline {
           echo  "Quality Gate Success"
         }
       }
-    }
+    }*/
 
     stage('Testing') {
       steps {
