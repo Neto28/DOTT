@@ -4,6 +4,14 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILDING'
+        dir(path: 'cd cidr_convert_api/go/') {
+          sh '''sudo docker build -t gom .
+
+containerID=sudo docker ps -aqf "name=goimage"
+'''
+          sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
+        }
+
       }
     }
 
@@ -16,7 +24,9 @@ export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linu
 curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
 unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
 export PATH=$SONAR_SCANNER_HOME/bin:$PATH
-export SONAR_SCANNER_OPTS="-server"'''
+export SONAR_SCANNER_OPTS="-server"
+'''
+        sh 'sonar-scanner'
       }
     }
 
@@ -24,7 +34,6 @@ export SONAR_SCANNER_OPTS="-server"'''
       steps {
         warnError(message: 'Failed to Run') {
           sh 'go version'
-          sh 'sonar-scanner'
           dir(path: 'cidr_convert_api/go/')
         }
 
@@ -34,6 +43,7 @@ export SONAR_SCANNER_OPTS="-server"'''
     stage('Deploy') {
       steps {
         echo 'Test'
+        sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
       }
     }
 
