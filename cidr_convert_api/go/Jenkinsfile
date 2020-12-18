@@ -37,7 +37,7 @@ pipeline {
           }
         }
 
-        waitForQualityGate(abortPipeline: true, credentialsId: 'Jenkins')
+        waitForQualityGate(abortPipeline: true, credentialsId: '$TOKEN')
       }
     }
 
