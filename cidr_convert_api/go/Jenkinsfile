@@ -43,10 +43,9 @@ pipeline {
     stage('Quality Gate') {
       steps {
         timeout(time: 1, unit: 'MINUTES') {
-          sh '''def scannerHome = tool \'My SonarQube Server\';
-withSonarQubeEnv("My SonarQube Server") {
+          sh '''
 sh "${tool("My SonarQube Server")}/bin/sonar-scanner
-}'''
+'''
         }
 
       }
