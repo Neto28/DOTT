@@ -35,6 +35,13 @@ sonar-scanner'''
 }'''
           }
 
+          warnError(message: 'SonarQube Error') {
+            withSonarQubeEnv('My SonarQube Server') {
+              sh 'println ${env.SONAR_HOST_URL} '
+            }
+
+          }
+
         }
       }
 
