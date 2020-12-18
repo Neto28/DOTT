@@ -41,21 +41,25 @@ pipeline {
     }
 
     stage("Quality Gate"){
-      def ceTask
-      timeout(time: 1, unit: 'MINUTES') {
-        waitUntil {
-          ceTask = jsonParse($HOST, $TOKEN)
-          echo ceTask.toString()
-          return "SUCCESS".equals(ceTask["task"]["status"])
+      steps{
+        script {
+          def ceTask
+          timeout(time: 1, unit: 'MINUTES') {
+            waitUntil {
+              ceTask = jsonParse($HOST, $TOKEN)
+              echo ceTask.toString()
+              return "SUCCESS".equals(ceTask["task"]["status"])
+            }
+          }
+          url = new URL($HOST + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"])
+          def qualitygate =  jsonParse($HOST, $TOKEN)
+          echo qualitygate.toString()
+          if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
+            error  "Quality Gate Failure"
+          }
+          echo  "Quality Gate Success"
         }
       }
-      url = new URL($HOST + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"])
-      def qualitygate =  jsonParse($HOST, $TOKEN)
-      echo qualitygate.toString()
-      if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
-        error  "Quality Gate Failure"
-      }
-      echo  "Quality Gate Success"
     }
 
     stage('Testing') {
