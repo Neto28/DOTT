@@ -4,13 +4,6 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILDING'
-        sh '''echo "BUILDING DOCKER"
-sudo yum install -y yum-utils
-sudo yum-config-manager \\
-    --add-repo \\
-    https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce docker-ce-cli containerd.io
-sudo systemctl start docker'''
         dir(path: 'cidr_convert_api/go/') {
           sh 'sudo docker build -t gom .'
           sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
