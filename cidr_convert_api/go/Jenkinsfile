@@ -58,8 +58,8 @@ pipeline {
       steps {
         echo 'DEPLOYING'
         warnError(message: 'Container doesn\'t exist') {
-          sh '''echo "DESTORING EXISTING GO CONTAINER"
-docker rm -f $(docker ps -aqf "name=goimage")
+          echo 'DESTROYING GO CONTAINER'
+          sh '''docker rm -f $(docker ps -aqf "name=goimage")
 '''
         }
 
