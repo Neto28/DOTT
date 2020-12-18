@@ -1,11 +1,5 @@
 pipeline {
   agent any
-  environment {
-    ORG = credentials('org')
-    HOST = credentials('host')
-    KEY = credentials('key')
-    TOKEN = credentials('token')
-  }
   stages {
     stage('Build') {
       steps {
@@ -28,7 +22,7 @@ pipeline {
           dir(path: 'cidr_convert_api/go/') {
             sh'pwd'
             sh 'ls'
-            sh 'go test -coverprofile=coverage.out'
+            sh 'docker exec -i $(docker ps -aqf "name=goimage") go test -coverprofile=coverage.out'
           }
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
@@ -71,6 +65,12 @@ docker rm -f $(docker ps -aqf "name=goimage")
 
       }
     }
-    
+
+  }
+  environment {
+    ORG = credentials('org')
+    HOST = credentials('host')
+    KEY = credentials('key')
+    TOKEN = credentials('token')
   }
 }
