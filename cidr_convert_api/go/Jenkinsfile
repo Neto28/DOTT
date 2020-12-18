@@ -4,12 +4,15 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILDING'
-        dir(path: 'cidr_convert_api/go/') {
-          sh 'sudo docker build -t gom .'
-          sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
-          sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
+        warnError(message: 'Container already exists') {
+          dir(path: 'cidr_convert_api/go/') {
+            sh 'sudo docker build -t gom .'
+            sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
+          }
+
         }
 
+        sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
         sh '''cd /var/lib/jenkins/workspace
 pwd
 ls'''
