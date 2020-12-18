@@ -29,33 +29,39 @@ export SONAR_SCANNER_OPTS="-server"
 sonar-scanner'''
         }
 
-      }
-    }
-
-    stage('Testing') {
-      steps {
-        warnError(message: 'Failed to Run Tests') {
-          sh 'go version'
-          dir(path: 'cidr_convert_api/go/') {
-            sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
+        warnError(message: 'Jenkins SonarQube Failure') {
+          sh '''withSonarQubeEnv(\'Sonar-Scanner\', envOnly: true) {
+  println ${env.SONAR_HOST_URL} 
+}'''
           }
 
         }
-
       }
-    }
 
-    stage('Deploy') {
-      steps {
-        echo 'DEPLOYING'
-        warnError(message: 'Container doesn\'t exist') {
-          sh '''echo "DESTORING EXISTING GO CONTAINER"
+      stage('Testing') {
+        steps {
+          warnError(message: 'Failed to Run Tests') {
+            sh 'go version'
+            dir(path: 'cidr_convert_api/go/') {
+              sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
+            }
+
+          }
+
+        }
+      }
+
+      stage('Deploy') {
+        steps {
+          echo 'DEPLOYING'
+          warnError(message: 'Container doesn\'t exist') {
+            sh '''echo "DESTORING EXISTING GO CONTAINER"
 sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
 '''
+          }
+
         }
-
       }
-    }
 
+    }
   }
-}
