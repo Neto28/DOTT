@@ -25,6 +25,9 @@ pipeline {
       steps {
         script {
           echo 'SONARCLOUD STATIC CODE ANALYSIS'
+          dir(path: 'cidr_convert_api/go/') {
+            sh 'go test -coverprofile=coverage.out'
+          }
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
             withSonarQubeEnv("My SonarQube Server") {
