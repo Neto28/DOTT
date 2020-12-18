@@ -4,12 +4,34 @@ pipeline {
     stage('Build') {
       steps {
         echo 'BUILDING'
+        sh '''echo "BUILDING DOCKER"
+sudo yum install -y yum-utils
+sudo yum-config-manager \\
+    --add-repo \\
+    https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker'''
+        dir(path: 'cidr_convert_api/go/') {
+          sh 'sudo docker build -t gom .'
+          sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
+          sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
+        }
+
       }
     }
 
     stage('SonarCloud') {
       steps {
-        echo 'SONARCLOUD STATIC CODE ANALYSIS'
+        sh '''echo \'SONARCLOUD STATIC CODE ANALYSIS\'
+
+export SONAR_SCANNER_VERSION=4.4.0.2170
+export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+export SONAR_SCANNER_OPTS="-server"
+
+sonar-scanner'''
       }
     }
 
@@ -18,27 +40,22 @@ pipeline {
         warnError(message: 'Failed to Run') {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
-            //sh 'goop install'
-            withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin:${HOME}/go/bin"]) {
-                sh "go get gopkg.in/alecthomas/gometalinter.v1"
-                sh "gometalinter.v1 --help"
-            }
+            sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
           }
+
         }
+
       }
     }
 
     stage('Deploy') {
       steps {
         echo 'Test'
+        sh '''echo "DESTORING EXISTING GO CONTAINER"
+sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
+'''
       }
     }
 
-  }
-  tools {
-    go 'go-1.15'
-  }
-  environment {
-    GO111MODULE = 'on'
   }
 }
