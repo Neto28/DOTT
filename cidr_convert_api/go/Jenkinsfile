@@ -37,7 +37,6 @@ pipeline {
           }
         }
 
-        waitForQualityGate(credentialsId: '8d60355e0235708653a74bf66b61a526e15baf33', webhookSecretId: 'test', abortPipeline: true)
       }
     }
 
