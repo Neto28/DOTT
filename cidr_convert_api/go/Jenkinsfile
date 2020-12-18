@@ -22,33 +22,16 @@ pipeline {
 	  warnError(message: 'Jenkins SonarQube Failure') {
 	    def scannerHome = tool 'My SonarQube Server';
 	    withSonarQubeEnv("My SonarQube Server") {
-	       sh '${tool("My SonarQube Server")}/bin/sonar-scanner \
+	       sh "${tool("My SonarQube Server")}/bin/sonar-scanner \
 			  -Dsonar.organization=neto28 \
 			  -Dsonar.projectKey=Neto28_DOTT \
 			  -Dsonar.sources=. \
-			  -Dsonar.host.url=https://sonarcloud.io'
+			  -Dsonar.host.url=https://sonarcloud.io"
 	    }
 	  }
         }
-        /*warnError(message: 'Sonar-Scanner Error') {
-          sh '''export SONAR_SCANNER_VERSION=4.4.0.2170
-export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
-curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
-unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
-export PATH=$SONAR_SCANNER_HOME/bin:$PATH
-export SONAR_SCANNER_OPTS="-server"
-
-sonar-scanner'''
-        }
-
-        warnError(message: 'Jenkins SonarQube Failure') {
-          sh '''withSonarQubeEnv(\'Sonar-Scanner\', envOnly: true) {
-  println ${env.SONAR_HOST_URL} 
-}'''
-          }
-*/
-        }
       }
+    }
 
       stage('Testing') {
         steps {
