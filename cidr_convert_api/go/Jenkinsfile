@@ -33,11 +33,11 @@ pipeline {
               -Dsonar.login=$TOKEN \
               -Dsonar.go.tests.reportPaths=$WORKSPACE/cidr_convert_api/go/coverage.out \
               -Dsonar.host.url=https://sonarcloud.io"
+               
+              waitForQualityGate(abortPipeline: true, credentialsId: '$TOKEN')
             }
           }
         }
-
-        waitForQualityGate(abortPipeline: true, credentialsId: '$TOKEN')
       }
     }
 
