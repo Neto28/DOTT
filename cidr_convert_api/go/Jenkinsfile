@@ -51,6 +51,9 @@ pipeline {
           sh '''echo "DESTORING EXISTING GO CONTAINER"
 docker rm -f $(docker ps -aqf "name=goimage")
 '''
+          withCredentials([string(credentialsId: 'org', variable: 'SECRET')]) {
+            echo "My secret text is '${SECRET}'"
+          }
         }
 
       }
