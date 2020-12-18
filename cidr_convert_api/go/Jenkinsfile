@@ -45,13 +45,7 @@ pipeline {
         timeout(time: 1, unit: 'MINUTES') {
           sh '''def scannerHome = tool \'My SonarQube Server\';
 withSonarQubeEnv("My SonarQube Server") {
-waitForQualityGate abortPipeline: true
--Dsonar.organization=$ORG \\
-              -Dsonar.projectKey=$KEY \\
-              -Dsonar.sources=. \\
-              -Dsonar.login=$TOKEN \\
-              -Dsonar.go.tests.reportPaths=$WORKSPACE/cidr_convert_api/go/coverage.out \\
-              -Dsonar.host.url=https://sonarcloud.io"
+-Dsonar.host.url=https://sonarcloud.io"
 }'''
         }
 
