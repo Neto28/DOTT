@@ -35,9 +35,9 @@ pipeline {
               -Dsonar.host.url=https://sonarcloud.io"
             }
           }
-        waitForQualityGate abortPipeline: true
         }
 
+        waitForQualityGate(abortPipeline: true, credentialsId: 'Jenkins')
       }
     }
 
