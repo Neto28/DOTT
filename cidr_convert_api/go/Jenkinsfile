@@ -32,7 +32,7 @@ pipeline {
               -Dsonar.projectKey=$KEY \
               -Dsonar.sources=. \
               -Dsonar.login=$TOKEN \
-              -Dsonar.go.tests.reportPaths=$WORKSPACE/coverage.xml \
+              -Dsonar.go.tests.reportPaths=$WORKSPACE/coverage.out \
               -Dsonar.host.url=https://sonarcloud.io"
             }
           }
