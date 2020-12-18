@@ -69,7 +69,7 @@ curl localhost/ip-validation?value=255.255.0.0
     - [X] (Plus) Linting
     - [X] Functional Testing(plus)
 - [X] (Plus) Docker
-- [ ] (Plus) Seguridad
+- [X] (Plus) Seguridad
 - [X] (Plus) Fix Code
 
 ### Techincal Diagram 
