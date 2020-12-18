@@ -45,7 +45,7 @@ pipeline {
         timeout(time: 1, unit: 'MINUTES') {
           sh '''def scannerHome = tool \'My SonarQube Server\';
 withSonarQubeEnv("My SonarQube Server") {
--Dsonar.host.url=https://sonarcloud.io"
+sh "${tool("My SonarQube Server")}/bin/sonar-scanner
 }'''
         }
 
