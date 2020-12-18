@@ -7,7 +7,7 @@ pipeline {
         warnError(message: 'Container already running') {
           dir(path: 'cidr_convert_api/go/') {
             sh 'containerID=$(docker ps -aqf "name=goimage")'
-            sh 'docker run -d --name goimage -ti -p 8000:8000 gom'
+            sh 'docker run -d --name goimage -ti -p 8000:8000 gommy'
           }
 
         }
@@ -22,7 +22,6 @@ pipeline {
           dir(path: 'cidr_convert_api/go/') {
             sh 'docker exec -i $(docker ps -aqf "name=goimage") go test -coverprofile=coverage.out'
             sh 'ls'
-            sh 'pwd'
           }
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
