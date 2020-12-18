@@ -20,10 +20,9 @@ pipeline {
         script {
           echo 'SONARCLOUD STATIC CODE ANALYSIS'
           dir(path: 'cidr_convert_api/go/') {
-            sh'pwd'
-            sh 'ls'
             sh 'docker exec -i $(docker ps -aqf "name=goimage") go test -coverprofile=coverage.out'
             sh 'ls'
+            sh 'pwd'
           }
           warnError(message: 'Jenkins SonarQube Failure') {
             def scannerHome = tool 'My SonarQube Server';
