@@ -37,10 +37,7 @@ pipeline {
           }
         }
 
-        sh '''def scannerHome = tool \'My SonarQube Server\';
-withSonarQubeEnv("My SonarQube Server") {
-waitForQualityGate(abortPipeline: true, credentialsId: \'$TOKEN\')
-}'''
+        waitForQualityGate(credentialsId: '8d60355e0235708653a74bf66b61a526e15baf33', webhookSecretId: 'test', abortPipeline: true)
       }
     }
 
