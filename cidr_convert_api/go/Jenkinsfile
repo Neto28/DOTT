@@ -34,7 +34,10 @@ export SONAR_SCANNER_OPTS="-server"
       steps {
         warnError(message: 'Failed to Run') {
           sh 'go version'
-          dir(path: 'cidr_convert_api/go/')
+          dir(path: 'cidr_convert_api/go/') {
+            sh 'sudo docker exec -it $(sudo docker ps -aqf "name=goimage") go test'
+          }
+
         }
 
       }
@@ -43,7 +46,9 @@ export SONAR_SCANNER_OPTS="-server"
     stage('Deploy') {
       steps {
         echo 'Test'
-        sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
+        sh '''echo "DESTORING EXISTING GO CONTAINER"
+sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
+'''
       }
     }
 
