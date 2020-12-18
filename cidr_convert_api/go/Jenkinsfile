@@ -13,7 +13,7 @@ sudo yum install docker-ce docker-ce-cli containerd.io
 sudo systemctl start docker'''
         dir(path: 'cidr_convert_api/go/') {
           sh 'sudo docker build -t gom .'
-          sh 'containerID=sudo docker ps -aqf "name=goimage"'
+          sh 'containerID=$(sudo docker ps -aqf "name=goimage")'
           sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
         }
 
