@@ -46,6 +46,7 @@ pipeline {
           sh 'go version'
           dir(path: 'cidr_convert_api/go/') {
             sh 'docker exec -i $(docker ps -aqf "name=goimage") go test'
+            sh 'docker exec -i $(docker ps -aqf "name=goimage") golint'
           }
 
         }
