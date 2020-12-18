@@ -7,7 +7,7 @@ pipeline {
         warnError(message: 'Container already running') {
           dir(path: 'cidr_convert_api/go/') {
             sh 'containerID=$(docker ps -aqf "name=goimage")'
-            sh 'sudo docker run -d --name goimage -ti -p 8000:8000 gom'
+            sh 'docker run -d --name goimage -ti -p 8000:8000 gom'
           }
 
         }
@@ -50,7 +50,7 @@ sonar-scanner'''
           warnError(message: 'Failed to Run Tests') {
             sh 'go version'
             dir(path: 'cidr_convert_api/go/') {
-              sh 'sudo docker exec -i $(sudo docker ps -aqf "name=goimage") go test'
+              sh 'docker exec -i $(docker ps -aqf "name=goimage") go test'
             }
 
           }
@@ -63,7 +63,7 @@ sonar-scanner'''
           echo 'DEPLOYING'
           warnError(message: 'Container doesn\'t exist') {
             sh '''echo "DESTORING EXISTING GO CONTAINER"
-sudo docker rm -f $(sudo docker ps -aqf "name=goimage")
+docker rm -f $(docker ps -aqf "name=goimage")
 '''
           }
 
