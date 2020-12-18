@@ -10,7 +10,6 @@ pipeline {
     stage('SonarCloud') {
       steps {
         echo 'SONARCLOUD STATIC CODE ANALYSIS'
-        //testing changes in server 
       }
     }
 
@@ -18,13 +17,10 @@ pipeline {
       steps {
         warnError(message: 'Failed to Run') {
           sh 'go version'
-          dir(path: 'cidr_convert_api/go/') {
-            sh '''go get github.com/karmakaze/goop \
-    && go get github.com/gorilla/mux \
-    && go get github.com/stretchr/testify/assert \
-    && goop install'''
-          }
+          sh 'sonar-scanner'
+          dir(path: 'cidr_convert_api/go/')
         }
+
       }
     }
 
@@ -33,5 +29,6 @@ pipeline {
         echo 'Test'
       }
     }
+
   }
 }
